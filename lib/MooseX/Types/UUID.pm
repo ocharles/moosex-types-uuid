@@ -10,15 +10,11 @@ use MooseX::Types::Moose qw(Str);
 
 sub _validate_uuid {
     my ($str) = @_;
-    return $str =~ /^[A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12}$/;
+    return $str =~ /^[A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12}$/i;
 }
 
 subtype UUID,
   as Str, where { _validate_uuid($_) };
-
-coerce UUID,
-  # i've never seen lowercase UUIDs, but someone's bound to try it
-  from Str, via { uc };
 
 1;
 
